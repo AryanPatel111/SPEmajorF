@@ -9,7 +9,7 @@ import iconImage from './th (2).jpg'; // Import the local image file
 // Define the custom icon for the pin marker
 const customIcon = L.icon({
   iconUrl: iconImage, // Use the local image file as icon
-  iconSize: [10, 10],
+  iconSize: [32, 32],
   iconAnchor: [8, 8],
 });
 
@@ -73,6 +73,7 @@ const Map1 = () => {
   const params = new URLSearchParams(location.search);
   let start = params.get('start');
   const end = params.get('end');
+  const algorithm = params.get('algorithm')
 
   // Fetch user location when the component mounts
   useEffect(() => {
@@ -104,26 +105,28 @@ const Map1 = () => {
 
   // Fetch path when start, end, or userPosition changes
   useEffect(() => {
-    // Only fetch path if start, end, and userPosition are set
     if (start && end && userPosition) {
-      // If start is 'current', find the nearest vertex
-      if (start === 'current') {
-        const nearestVertex = findNearestVertex(userPosition);
-        start = nearestVertex;
-        setPath([nearestVertex]);
+      let apiUrl = '';
+      if (algorithm === 'dijkstra') {
+        apiUrl = `http://localhost:8081/dijkstra?start=${start}&end=${end}`;
+      } else if (algorithm === 'bellmanford') {
+        apiUrl = `http://localhost:9191/bellmanford?start=${start}&end=${end}`;
+      } else if (algorithm === 'astar') {
+        apiUrl = `http://localhost:8081/astar?start=${start}&end=${end}`;
       }
 
-      // Make API call to fetch path
-      axios.get(`http://localhost:8081/shortest-path?start=${start}&end=${end}`)
-        .then(response => {
-          setPath(response.data.path);
-          setMapVisible(true); // Set map visibility to true after fetching path
-        })
-        .catch(error => {
-          console.error('Error fetching path:', error);
-        });
+      if (apiUrl) {
+        axios.get(apiUrl)
+          .then(response => {
+            setPath(response.data.path);
+            setMapVisible(true);
+          })
+          .catch(error => {
+            console.error('Error fetching path:', error);
+          });
+      }
     }
-  }, [start, end, userPosition]);
+  }, [start, end, userPosition, algorithm]);
 
   return (
     <>
