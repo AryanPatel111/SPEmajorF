@@ -14,16 +14,11 @@
         var: docker_pull_result
 
     - name: Apply Kubernetes Deployment
-      k8s:
-        state: present
-        definition: "{{ lookup('file', '../kubernetes/deployment.yaml') }}"
+      command: kubectl apply -f ../kubernetes/deployment.yaml
 
     - name: Apply Kubernetes Service
-      k8s:
-        state: present
-        definition: "{{ lookup('file', '../kubernetes/service.yaml') }}"
+      command: kubectl apply -f ../kubernetes/service.yaml
 
     - name: Apply Kubernetes Ingress
-      k8s:
-        state: present
-        definition: "{{ lookup('file', '../kubernetes/ingress.yaml') }}"
+      command: kubectl apply -f ../kubernetes/ingress.yaml
+
