@@ -3,26 +3,9 @@
   remote_user: subbhashit
   become: false
   tasks:
-    - name: Pull Docker Image
-      docker_image:
-        name: "23subbhashit/spemajorf"
-        source: pull
-      register: docker_pull_result
 
-    - name: Display Docker Pull Result
-      debug:
-        var: docker_pull_result
-
-    - name: Start Docker service
-      service:
-        name: docker
-        state: started
-
-    - name: Running container
-      shell: docker run -it -d --name spemajor 23subbhashit/spemajorf
-
-    # - name: Run Kubernetes Deployment files files
-    #   shell: kubectl apply -f "{{ item }}"
-    #   with_fileglob:
-    #     - ../kubernetes/*.yaml
+    - name: Run Kubernetes Deployment files files
+      shell: kubectl apply -f "{{ item }}"
+      with_fileglob:
+        - ../kubernetes/*.yaml
 
