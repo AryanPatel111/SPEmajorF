@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         DOCKER_REGISTRY_CREDENTIALS = 'DockerHubCred'
-        DOCKER_IMAGE_NAME = '23subbhashit/spemajorf/pathf'
-        REACT_APP_PATH = '/mnt/c/Users/User/Desktop/spemajor'
+        DOCKER_IMAGE_NAME = '23subbhashit/spemajorf'
+        REACT_APP_PATH = '/mnt/c/Users/User/Desktop/spemajor/pathf'
     }
 
     stages {
