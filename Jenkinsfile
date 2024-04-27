@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_REGISTRY_CREDENTIALS = 'DockerHubCred'
-        DOCKER_IMAGE_NAME = '23subbhashit/spemajorf'
+        DOCKER_IMAGE_NAME = '23subbhashit/spemajorf/pathf'
         REACT_APP_PATH = '/mnt/c/Users/User/Desktop/spemajor'
     }
 
@@ -23,8 +23,10 @@ pipeline {
 
         stage('Build React App') {
             steps {
+                dir(REACT_APP_PATH) {
                     sh 'npm install'
                     sh 'npm run build'
+                }
             }
         }
 
