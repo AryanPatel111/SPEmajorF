@@ -1,5 +1,4 @@
----
-- name: Pull Docker Image from Docker Hub
+- name: Deploy Docker image and Kubernetes resources for spemajorf
   hosts: localhost
   remote_user: subbhashit
   become: false
@@ -14,10 +13,17 @@
       debug:
         var: docker_pull_result
 
-    - name: Start Docker service
-      service:
-        name: docker
-        state: started
+    - name: Apply Kubernetes Deployment
+      k8s:
+        state: present
+        definition: "{{ lookup('file', '../kubernetes/deployment.yaml') }}"
 
-    - name: Running container
-      shell: docker run -d --name minispe 23subbhashit/spemajorf
+    - name: Apply Kubernetes Service
+      k8s:
+        state: present
+        definition: "{{ lookup('file', '../kubernetes/service.yaml') }}"
+
+    - name: Apply Kubernetes Ingress
+      k8s:
+        state: present
+        definition: "{{ lookup('file', '../kubernetes/ingress.yaml') }}"
