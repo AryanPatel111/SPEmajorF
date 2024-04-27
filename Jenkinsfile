@@ -25,7 +25,7 @@ pipeline {
             steps {
                 dir('/mnt/c/Users/User/Desktop/spemajor/pathf') {
                     sh '"/mnt/c/Program Files/nodejs/npm" install'
-                    sh '/mnt/c/Program Files/nodejs/npm run build'
+                    sh '"/mnt/c/Program Files/nodejs/npm" run build'
                 }
             }
         }
