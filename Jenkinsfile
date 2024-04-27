@@ -23,9 +23,9 @@ pipeline {
 
         stage('Build React App') {
             steps {
-                dir(REACT_APP_PATH) {
-                    sh 'npm install'
-                    sh 'npm run build'
+                dir('/mnt/c/Users/User/Desktop/spemajor/pathf') {
+                    sh '/mnt/c/Program Files/nodejs/npm install'
+                    sh '/mnt/c/Program Files/nodejs/npm run build'
                 }
             }
         }
