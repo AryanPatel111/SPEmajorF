@@ -5,6 +5,6 @@
   become: false
   tasks:
     - name: Run Kubernetes Deployment files
-      shell: kubectl apply -f "{{ item }}" {% if kubectl_validate == false %}--validate=false{% endif %}
+      shell: kubectl apply -f "{{ item }}" --namespace=your-namespace --serviceaccount=fork8s
       with_fileglob:
         - ../kubernetes/*.yaml
