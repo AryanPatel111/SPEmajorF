@@ -8,5 +8,6 @@
         state: present
         src: "{{ item }}"
         namespace: your-namespace
+        kube_config: "/home/subbhashit/.kube/config"  # Use the path to your kube-config file
       with_fileglob:
         - ../kubernetes/*.yaml
