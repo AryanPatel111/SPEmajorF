@@ -12,6 +12,7 @@ spec:
       labels:
         app: spemajorf
     spec:
+      serviceAccountName: fork8s  # Specify the service account name here
       containers:
         - name: spemajorf-container
           image: 23subbhashit/spemajorf

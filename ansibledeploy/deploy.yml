@@ -8,6 +8,5 @@
         state: present
         src: "{{ item }}"
         namespace: your-namespace
-        service_account: fork8s
       with_fileglob:
         - ../kubernetes/*.yaml
